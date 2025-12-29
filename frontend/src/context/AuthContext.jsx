@@ -12,14 +12,31 @@ export function AuthProvider({ children }) {
 
   // Socket Connection
   React.useEffect(() => {
-    const socket = io(import.meta.env.VITE_API_URL || "http://localhost:5000");
+    // Socket.IO is not supported on Vercel Serverless.
+    // We only attempt connection if explicitly enabled or on localhost for dev.
+    const isDev = window.location.hostname === "localhost";
+    const shouldConnect = isDev;
 
-    socket.on("activeUsers", (count) => {
-      setActiveUsers(count);
-    });
+    if (!shouldConnect) return;
+
+    let socket;
+    try {
+      socket = io(import.meta.env.VITE_API_URL || "http://localhost:5000");
+
+      socket.on("activeUsers", (count) => {
+        setActiveUsers(count);
+      });
+
+      socket.on("connect_error", () => {
+        // Silently fail if connection refused
+        socket.disconnect();
+      });
+    } catch (e) {
+      console.warn("Socket connection failed", e);
+    }
 
     return () => {
-      socket.disconnect();
+      if (socket) socket.disconnect();
     };
   }, []);
 
