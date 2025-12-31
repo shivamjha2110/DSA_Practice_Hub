@@ -1,14 +1,44 @@
-# AlgoBloom (MERN) — JWT Auth + MongoDB (No Clerk)
+# AlgoBloom - Your Ultimate DSA Practice Tracker 🚀
 
-This version removes **Clerk** and uses **JWT (Login/Signup/Logout)** with **MongoDB** (pure MERN).
+![Landing Page](assets/landing.png)
 
-## 1) Local setup (Windows/Mac/Linux)
+**AlgoBloom** is a modern, feature-rich DSA tracker designed to help you organize your preparation, track progress, and crack your coding interviews. Built with the **MERN** stack (MongoDB, Express, React, Node.js), it offers a premium, distraction-free environment for serious aspirants.
 
-### Prerequisites
-- Node.js 18+
-- MongoDB Atlas connection string (recommended)
+## ✨ Key Features
 
-### Backend
+### 📊 Comprehensive Dashboard
+Visualize your progress with heatmaps, streak tracking, and difficulty breakdowns. Stay motivated with daily goals and real-time statistics.
+![Dashboard](assets/dashboard.png)
+
+### 🎯 Curated Topic Sheets
+Import your favorite DSA sheets (like Cracking the Coding Interview, Love Babbar, Striver, etc.) via Excel. Browse questions by topic to maintain structured learning.
+![Topics](assets/topics.png)
+
+### 📝 Smart Question Lists
+Filter, search, and sort questions with ease. Mark questions as **Solved** or add them to your **Revisit** queue for spaced repetition. High-performance filters help you find exactly what you need.
+![List Detail](assets/list-detail.png)
+
+### 🔄 Review & Retention
+Never lose track of tricky problems. The dedicated **Revisit** section ensures you review crucial patterns before your interviews.
+![Revisit](assets/revisit.png)
+
+---
+
+## 🛠️ Tech Stack
+-   **Frontend:** React (Vite), TailwindCSS, Framer Motion, Recharts
+-   **Backend:** Node.js, Express, MongoDB (Mongoose)
+-   **Authentication:** Custom JWT (JSON Web Tokens) - No external auth providers like Clerk required.
+-   **Deployment:** Optimized for Vercel (Frontend + Serverless Backend in one repo).
+
+---
+
+## 🚀 Getting Started
+
+### 1) Prerequisites
+-   **Node.js 18+**
+-   **MongoDB Atlas** connection string (recommended)
+
+### 2) Backend Setup
 ```bash
 cd backend
 cp .env.example .env
@@ -18,7 +48,7 @@ npm run dev
 ```
 Backend runs on `http://localhost:5000`.
 
-### Frontend
+### 3) Frontend Setup
 ```bash
 cd frontend
 cp .env.example .env
@@ -28,71 +58,33 @@ npm run dev
 ```
 Frontend runs on `http://localhost:5173`.
 
-## 2) Excel se questions import (sheet cards + topic distribution)
-
-1. Put your workbook anywhere.
-   - This repo already includes a sample workbook at `workbook/Crack The Coding Interview.xlsx`.
-2. In `backend/.env`, set:
-
-```env
-SEED_EXCEL_PATH=../workbook/Crack The Coding Interview.xlsx
-```
-
-3. Run:
-```bash
-cd backend
-npm run seed
-```
-
-**Note:** If you want to clear old data and seed fresh:
-```bash
-CLEAR_DB=true npm run seed
-```
-
-The seeder automatically:
-- Creates **Sheet Cards** (one card per Excel sheet)
-- Creates **Topics** (from the sheet's Topic column, or the sheet name if Topic column is missing)
-- Creates **Questions** (unique by link)
-- Handles duplicates safely (same question in multiple sheets/topics)
-
-## 3) Key features
-- ✅ Topic-wise distribution (inside every sheet you can still filter/search)
-- ✅ Solved toggle (updates counts everywhere)
-- ✅ Revisit toggle + Revisit list
-- ✅ Dashboard analytics (trend + difficulty + 90-day heatmap)
-- ✅ Dark/Light mode (dropdowns visible in dark mode too)
-- ✅ Optional LeetCode sync + profile avatar (if you enter your username)
-
-## 4) Deploy on Vercel (Frontend + Backend in SAME project)
-
-### Step A — Create a Vercel project
-- Import this repository/folder in Vercel.
-- Vercel will detect `vercel.json` and deploy:
-  - Frontend: static build (Vite)
-  - Backend: serverless function at `/api/*`
-
-### Step B — Set environment variables in Vercel
-Add these in **Vercel → Project → Settings → Environment Variables**:
-
-**Backend (Production):**
-- `MONGO_URI` = your MongoDB Atlas URI
-- `JWT_SECRET` = long random string
-- `CLIENT_URL` = your Vercel frontend domain (example: `https://your-app.vercel.app`)
-
-**Frontend (Production):**
-- (Optional) `VITE_API_URL` = leave EMPTY to use same-origin `/api`
-  - If you deploy backend separately, then set `VITE_API_URL` to backend URL.
-
-### Step C — Deploy
-- Click **Deploy**
-
-## 5) Common errors
-
-### "GET /api/topics 401"
-You are not logged in or token is missing. Login again.
-
-### "MongoDB connected but seed not working"
-Check `SEED_EXCEL_PATH` (path must be relative to **backend** folder).
+### 4) Importing Questions (Excel Seed)
+AlgoBloom allows you to seed your database from an Excel workbook.
+1.  Place your workbook in the `workbook/` directory (e.g., `workbook/Crack The Coding Interview.xlsx`).
+2.  In `backend/.env`, set:
+    ```env
+    SEED_EXCEL_PATH=../workbook/Crack The Coding Interview.xlsx
+    ```
+3.  Run the seed command:
+    ```bash
+    cd backend
+    npm run seed
+    ```
+    *(To clear old data: `CLEAR_DB=true npm run seed`)*
 
 ---
-Made for interview practice.
+
+## ☁️ Deployment (Vercel)
+
+This repository is configured for easy deployment on Vercel as a monorepo.
+
+1.  **Import** this repository into Vercel.
+2.  Vercel will detect `vercel.json` and deploy both the frontend (static) and backend (serverless functions).
+3.  **Environment Variables** (Vercel Project Settings):
+    -   `MONGO_URI`: Your MongoDB connection string.
+    -   `JWT_SECRET`: A secure random string.
+    -   `CLIENT_URL`: Your production frontend URL (e.g., `https://your-project.vercel.app`).
+4.  **Deploy**!
+
+---
+Made with ❤️ for interview success.
