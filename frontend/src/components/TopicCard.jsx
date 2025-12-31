@@ -15,7 +15,7 @@ export default function TopicCard({ topic }) {
 
       <div className="relative">
         <div className="flex items-start justify-between gap-3">
-          <div>
+          <div className="min-w-0 flex-1">
             <div className="text-sm font-bold text-zinc-800 dark:text-zinc-100">{topic.name}</div>
             <div className="mt-1 text-xs font-semibold text-zinc-500 dark:text-zinc-400">
               {topic.solved}/{topic.total} solved

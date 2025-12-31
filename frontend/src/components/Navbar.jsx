@@ -34,12 +34,12 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-40">
       <div className="border-b border-zinc-200/70 bg-white/60 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/60">
-        <div className="container-app flex items-center justify-between py-3">
-          <Link to="/" className="flex items-center gap-3">
-            <Logo className="h-9 w-9" />
+        <div className="container-app flex items-center justify-between py-2 sm:py-3">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3">
+            <Logo className="h-8 w-8 sm:h-9 sm:w-9" />
             <div className="leading-tight">
-              <div className="text-sm font-extrabold tracking-tight">AlgoBloom</div>
-              <div className="text-[11px] text-zinc-600 dark:text-white/60">DSA practice tracker</div>
+              <div className="text-sm font-extrabold tracking-tight sm:text-base">AlgoBloom</div>
+              <div className="hidden text-[11px] text-zinc-600 dark:text-white/60 sm:block">DSA practice tracker</div>
             </div>
           </Link>
 
@@ -75,10 +75,10 @@ export default function Navbar() {
 
           {/* mobile */}
           <div className="flex items-center gap-2 sm:hidden">
-            <button className="btn-ghost" onClick={toggle} aria-label="Toggle theme">
+            <button className="btn-ghost !px-2" onClick={toggle} aria-label="Toggle theme">
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <button className="btn-ghost" onClick={() => setOpen((v) => !v)} aria-label="Menu">
+            <button className="btn-ghost !px-2" onClick={() => setOpen((v) => !v)} aria-label="Menu">
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
@@ -87,8 +87,8 @@ export default function Navbar() {
 
       {/* mobile menu panel */}
       {open ? (
-        <div className="border-b border-zinc-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/70 sm:hidden">
-          <div className="container-app py-3">
+        <div className="border-b border-zinc-200/70 bg-white/95 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/95 sm:hidden">
+          <div className="container-app space-y-1 py-4">
             <div className="grid gap-1">
               {user ? (
                 <>
@@ -97,7 +97,8 @@ export default function Navbar() {
                   <NavItem to="/revisit" onClick={() => setOpen(false)}>Revisit</NavItem>
                   <NavItem to="/search" onClick={() => setOpen(false)}>Search</NavItem>
                   <NavItem to="/analytics" onClick={() => setOpen(false)}>Analytics</NavItem>
-                  <button className="btn-ghost mt-2 w-full justify-start" onClick={logout}>
+                  <div className="my-2 border-t border-zinc-200/50 dark:border-white/10"></div>
+                  <button className="flex w-full items-center gap-2 rounded-2xl px-3 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10" onClick={logout}>
                     <LogOut size={18} /> Logout
                   </button>
                 </>
